@@ -13,6 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity() {
+
     @Inject
     lateinit var viewModel: HomeViewModel
 

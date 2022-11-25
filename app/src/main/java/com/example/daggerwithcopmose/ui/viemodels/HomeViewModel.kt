@@ -1,20 +1,18 @@
 package com.example.daggerwithcopmose.ui.viemodels
 
-import android.app.Application
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
-import com.example.daggerwithcopmose.data.network.ApiState
-import com.example.daggerwithcopmose.data.network.ResourceNetwork
-import com.example.daggerwithcopmose.data.network.ResourceNetworkStateFlow
-import com.example.daggerwithcopmose.data.network.responses.CommentListDataResponse
+import com.example.daggerwithcopmose.data.network.ResourceNetworkFlow
+import com.example.daggerwithcopmose.data.network.responses.CommentListDataResponseItem
 import com.example.daggerwithcopmose.data.repository.CommonRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
@@ -32,6 +30,29 @@ class HomeViewModel @Inject constructor(
 
     // *********************************************************************************
     fun getCommentsListData() = repository.getCommentsListData()
+
+    var successCommentResponse: ArrayList<CommentListDataResponseItem> by mutableStateOf(arrayListOf())
+    var errorCommentResponse: String by mutableStateOf("")
+    fun getCommentsListDataWithCompose() {
+        viewModelScope.launch {
+            repository.getCommentsListData().collect { response ->
+                when (response) {
+                    is ResourceNetworkFlow.Loading -> {
+                        Timber.tag("").e("Please wait...")
+                    }
+                    is ResourceNetworkFlow.Success -> {
+                        successCommentResponse = response.data!!
+                        Timber.e("Success ${response.data}")
+                    }
+                    is ResourceNetworkFlow.Error -> {
+                        errorCommentResponse = response.error!!.message.toString()
+                        Timber.e("Error")
+
+                    }
+                }
+            }
+        }
+    }
 
 
 }

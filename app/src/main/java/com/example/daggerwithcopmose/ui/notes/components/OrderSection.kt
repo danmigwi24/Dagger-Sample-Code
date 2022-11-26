@@ -1,4 +1,4 @@
-package com.example.daggerwithcopmose.ui.components
+package com.example.daggerwithcopmose.ui.notes.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.RadioButton

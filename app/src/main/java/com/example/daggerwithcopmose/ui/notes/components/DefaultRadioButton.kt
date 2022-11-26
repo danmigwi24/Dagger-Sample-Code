@@ -1,4 +1,4 @@
-package com.example.daggerwithcopmose.ui.components
+package com.example.daggerwithcopmose.ui.notes.components
 
 import android.support.v4.os.IResultReceiver.Default
 import androidx.compose.foundation.layout.Row

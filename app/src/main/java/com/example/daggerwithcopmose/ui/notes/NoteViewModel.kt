@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.daggerwithcopmose.data.model.Note
 import com.example.daggerwithcopmose.data.model.NoteOrder
-import com.example.daggerwithcopmose.data.model.OrdetType
+import com.example.daggerwithcopmose.data.model.OrderType
 import com.example.daggerwithcopmose.data.usecase.NoteUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
@@ -25,7 +25,7 @@ class NoteViewModel @Inject constructor(private val noteUseCase: NoteUseCase) : 
     private var getNotesJob: Job? = null
 
     init {
-        getNotes(NoteOrder.Date(OrdetType.Descending))
+        getNotes(NoteOrder.Date(OrderType.Descending))
     }
 
     fun onEvent(event: NoteEvent) {

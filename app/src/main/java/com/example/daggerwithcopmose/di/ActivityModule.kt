@@ -1,7 +1,6 @@
 package com.example.daggerwithcopmose.di
 
-
-import com.example.daggerwithcopmose.MainActivity
+import com.example.daggerwithcopmose.ui.MainActivity
 import com.example.daggerwithcopmose.ui.SplashActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

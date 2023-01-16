@@ -2,7 +2,7 @@ package com.example.daggerwithcopmose.data.usecase
 
 import com.example.daggerwithcopmose.data.model.Note
 import com.example.daggerwithcopmose.data.model.NoteOrder
-import com.example.daggerwithcopmose.data.model.OrdetType
+import com.example.daggerwithcopmose.data.model.OrderType
 import com.example.daggerwithcopmose.data.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -11,11 +11,11 @@ class GetNotesUseCase(
     private val repository: NoteRepository
 ) {
     operator fun invoke(
-        noteOrder: NoteOrder = NoteOrder.Date(OrdetType.Descending)
+        noteOrder: NoteOrder = NoteOrder.Date(OrderType.Descending)
     ): Flow<List<Note>> {
         return repository.getNotes().map { notes ->
             when (noteOrder.orderType) {
-                is OrdetType.Ascending -> {
+                is OrderType.Ascending -> {
                     when (noteOrder) {
                         is NoteOrder.Title -> {
                             notes.sortedBy { it.title.lowercase() }
@@ -28,7 +28,7 @@ class GetNotesUseCase(
                         }
                     }
                 }
-                is OrdetType.Descending -> {
+                is OrderType.Descending -> {
                     when (noteOrder) {
                         is NoteOrder.Title -> {
                             notes.sortedByDescending { it.title.lowercase() }
